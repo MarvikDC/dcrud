@@ -1,0 +1,15 @@
+{% extends 'crud/layout.html' %}
+{% block content %}
+    <h1>Lista de Equipos</h1>
+    <ul>
+    {% for equipo in equipos%}
+        <li>{{equipo}}</li>
+        <button><a href="{% url 'eliminar' equipo.id %}">Eliminar</a></button>
+        <button><a href="{% url 'editar' equipo.id %}">Editarr</a></button>
+    {% endfor%}
+    </ul>
+
+
+    <button><a href="{% url 'agregar' %}">Agregar</a></button>
+    <button><a href="{% url 'ayuda' %}">Ayuda</a></button>
+{% endblock %}
