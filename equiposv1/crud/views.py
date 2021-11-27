@@ -1,6 +1,7 @@
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
-from .models import Equipo
+from .models import Equipo, Document
+#from . import models
 from .forms import EquipoForm
 from equiposv1 import settings
 from django.core.mail import send_mail
@@ -56,6 +57,25 @@ def helpdesk(request):
         return redirect('home')
     
     return render(request, 'crud/helpdesk.html')
+
+def uploadFile(request):
+    if request.method == "POST":
+        # Fetching the form data
+        fileTitle = request.POST["fileTitle"]
+        uploadedFile = request.FILES["uploadedFile"]
+
+        # Saving the information in the database
+        document = Document(
+            title = fileTitle,
+            uploadedFile = uploadedFile
+        )
+        document.save()
+
+    documents = Document.objects.all()
+
+    return render(request, "crud/upload-file.html", context = {
+        "files": documents
+    })
     
     
     

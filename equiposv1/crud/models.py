@@ -12,5 +12,9 @@ class Equipo(models.Model):
         return self.equipo_serie + "  "+ self.equipo_marca+ "  "+ self.equipo_descripcion
         
 
+class Document(models.Model):
+    title = models.CharField(max_length = 200)
+    uploadedFile = models.FileField(upload_to = "Uploaded Files/")
+    dateTimeOfUpload = models.DateTimeField(auto_now = True)
 
 
