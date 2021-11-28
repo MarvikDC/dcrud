@@ -12,10 +12,14 @@ urlpatterns = [
     path("editar/<int:equipo_id>/", views.editar, name="editar"),
     path("ayuda/", views.helpdesk, name="ayuda"),
     path("archivos/", views.uploadFile, name = "uploadFiles"),
+    path("archivosprivados/", views.privateFile, name = "privateFiles"),
+    path("detallearchivo/<int:archivo_id>/", views.detallefile, name="detallearchivo"),
 ]
+
 
 if settings.DEBUG: 
     urlpatterns += static(
         settings.MEDIA_URL, 
         document_root = settings.MEDIA_ROOT
     )
+    

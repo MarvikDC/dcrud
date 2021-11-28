@@ -1,6 +1,6 @@
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
-from .models import Equipo, Document
+from .models import Equipo, Document, privateDocument
 #from . import models
 from .forms import EquipoForm
 from equiposv1 import settings
@@ -76,6 +76,32 @@ def uploadFile(request):
     return render(request, "crud/upload-file.html", context = {
         "files": documents
     })
+
+def privateFile(request):
+    if request.method == "POST":
+        # Fetching the form data
+        fileTitle = request.POST["fileTitle"]
+        uploadedFile = request.FILES["uploadedFile"]
+
+        # Saving the information in the database
+        document = privateDocument(
+            title = fileTitle,
+            uploadedFile = uploadedFile
+        )
+        document.save()
+
+    documents = privateDocument.objects.all()
+
+    return render(request, "crud/privateFiles.html", context = {
+        "files": documents
+    })
+
+def detallefile(request, archivo_id):
+    archivo = privateDocument.objects.get(id=archivo_id)
+    texto=str(archivo.uploadedFile)
+    ruta = texto.replace('static/','',1)
+    context = {'ruta':ruta}
+    return render(request, 'crud/renderfile.html', context)
     
     
     

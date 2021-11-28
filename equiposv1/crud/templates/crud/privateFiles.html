@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archivos</title>
+    <title>Archivos Privados</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
@@ -36,7 +36,7 @@
     </style>
 </head>
 <body>
-    <form action="/archivos/" method="POST" enctype="multipart/form-data">
+    <form action="/archivosprivados/" method="POST" enctype="multipart/form-data">
         <input type="text" name="fileTitle" placeholder="Enter a title">
         <input type="file" name="uploadedFile">
         {% csrf_token %}
@@ -55,7 +55,8 @@
                 <td>{{ file.title }}</td>                
                 <!-- <td>{{ file.uploadedFile.url }}</td> -->
                 <td>{{ file.dateTimeOfUpload }}</td>
-                <td><button><a href={{file.uploadedFile.url}}>Ver</a></button></td>
+                <!--<td><button><a href={{file.uploadedFile.url}}>Ver</a></button></td> -->
+                <td><button><a href="{% url 'detallearchivo' file.id %}">Detalle</a></button></td>
                 
             </tr>
         {% endfor %}

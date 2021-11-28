@@ -17,4 +17,11 @@ class Document(models.Model):
     uploadedFile = models.FileField(upload_to = "Uploaded Files/")
     dateTimeOfUpload = models.DateTimeField(auto_now = True)
 
+class privateDocument(models.Model):
+    title = models.CharField(max_length = 200)
+    uploadedFile = models.FileField(upload_to = "static/img/")
+    dateTimeOfUpload = models.DateTimeField(auto_now = True)
+
+    
+
 
