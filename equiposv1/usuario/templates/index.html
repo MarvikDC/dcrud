@@ -1,0 +1,10 @@
+{% extends 'crud/layout.html' %}
+{% block content %}
+    <h1>Sistema de Equipos</h1>
+
+    <p>Por favor seleciona registrar si eres nuevo en la plataforma</p>
+    <button><a href="{% url 'crearusuario' %}">Registrar</a></button>
+    <p>O procede a iniciar sesion</p>
+    <button><a href="{% url 'logear' %}">Iniciar Sesion</a></button>
+
+{% endblock %}

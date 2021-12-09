@@ -14,6 +14,7 @@ urlpatterns = [
     path("archivos/", views.uploadFile, name = "uploadFiles"),
     path("archivosprivados/", views.privateFile, name = "privateFiles"),
     path("detallearchivo/<int:archivo_id>/", views.detallefile, name="detallearchivo"),
+    path("listas/", views.equipos, name="listas"),
 ]
 
 

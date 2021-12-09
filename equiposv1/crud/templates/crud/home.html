@@ -1,17 +1,99 @@
 {% extends 'crud/layout.html' %}
 {% block content %}
     <h1>Lista de Equipos</h1>
-    <ul>
-    {% for equipo in equipos%}
-        <li>{{equipo}}</li>
-        <button><a href="{% url 'eliminar' equipo.id %}">Eliminar</a></button>
-        <button><a href="{% url 'editar' equipo.id %}">Editarr</a></button>
-    {% endfor%}
-    </ul>
-
-
+    <div>
     <button><a href="{% url 'agregar' %}">Agregar</a></button>
     <button><a href="{% url 'ayuda' %}">Ayuda</a></button>
     <button><a href="{% url 'uploadFiles' %}">Archivos</a></button>
     <button><a href="{% url 'privateFiles' %}">A_Privados</a></button>
+    </div>
+    <br>
+    <h2>{{user.username}}</h2>
+    <div>
+    <script>
+        var d = new Date();
+        document.write(d.getDate()+'/'+d.getMonth()+'/'+d.getFullYear()+'   ');
+        //document.write(d.getHours()+':'+d.getMinutes()+':'+d.getSeconds());
+        document.write(d.toTimeString());
+    </script>
+    </div>
+
+    <!--
+    <ul id=lista>
+        {% for equipo in equipos%}
+            <li>{{equipo}}
+                <div>
+                <button><a href="{% url 'eliminar' equipo.id %}">Eliminar</a></button>
+                <button><a href="{% url 'editar' equipo.id %}">Editarr</a></button>
+                </div>
+            </li>
+            <br>
+        {% endfor%}
+    </ul>
+    -->
+
+    <ul id=lista>
+        
+    </ul>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+        function listar(){
+            $.ajax({
+                url: '/a/listas/',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response){
+                    
+            
+                    var lista = document.getElementById('lista');
+                    lista.innerHTML = '';   
+                    for (var i in response.equipos) {
+                        //console.log(response.equipos[i]);
+                        var li_id = response.equipos[i].id;
+                        var li = document.createElement('li');
+                        li.innerHTML = response.equipos[i].equipo_serie +
+                        '-->>'+
+                        response.equipos[i].equipo_marca +
+                        '-->>'+
+                        response.equipos[i].equipo_descripcion +
+                        '------'+
+                        '<button><a href="/editar/'+li_id+'/">Editar</a></button>'+
+                        '<button id="delete" onclick="doDelete('+li_id+');">Eliminar</button>';
+                        //console.log("mi id:");
+                        //console.log(response.equipos[i].id);
+                        lista.appendChild(li);
+                    }
+                }
+            })
+        }
+
+        function doDelete(id){
+            
+            console.log("esto funciona el id es:"+ id);
+            //window.location.href = "/eliminar/"+ id + "/";
+            $.ajax({
+                url: "/a/eliminar/"+ id + "/",
+                type: 'GET',
+                dataType: 'json',
+                success: function(response){
+                
+                    event.stopPropagation();
+                    console.log("eliminad el: "+ id);
+                    listar();
+
+                }
+            })
+        }
+        
+        $( document ).ready(function() {
+		    console.log( "ready!" );
+
+            listar();
+  
+        })
+
+    </script>
+    
 {% endblock %}

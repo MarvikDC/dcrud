@@ -15,6 +15,10 @@ def home(request):
     context = {'equipos':equipos}
     return render(request, 'crud/home.html', context)
 
+def equipos(request):
+    equipos = Equipo.objects.all()
+    return JsonResponse({'equipos':list(equipos.values())})
+
 def agregar(request):
     if request.method == "POST":
         form = EquipoForm(request.POST)
@@ -30,7 +34,8 @@ def agregar(request):
 def eliminar(request, equipo_id):
     equipo = Equipo.objects.get(id=equipo_id)
     equipo.delete()
-    return redirect("home")
+    # return redirect("home")
+    return JsonResponse({'status': "deleted"})
 
 def editar(request, equipo_id):
     equipo = Equipo.objects.get(id=equipo_id)

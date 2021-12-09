@@ -1,0 +1,19 @@
+{% extends 'crud/layout.html' %}
+{% block content %}
+    <h1>Sistema de Equipos</h1>
+    {% csrf_token %}
+    <form method="post" action"">
+        {% csrf_token %}
+        <div>
+            {% csrf_token %}
+        {{ form.username}}
+        </div>
+        <div>
+            {% csrf_token %}
+            {{ form.password}}
+        </div>
+        <button>SSSSSSSSSS</button>
+    </form>
+    <a href="{% url 'home' %}">ir</a>
+    
+{% endblock %}
