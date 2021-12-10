@@ -5,12 +5,17 @@ from .models import Equipo, Document, privateDocument
 from .forms import EquipoForm
 from equiposv1 import settings
 from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 def welcome(request):
-    return render(request, 'crud/welcome.html')
-
+    if request.user.is_authenticated:
+        return redirect('home')
+    else:
+        return render(request, 'crud/welcome.html')
+    
+@login_required(login_url='bienvenido')
 def home(request):
     equipos = Equipo.objects.all()
     
@@ -18,10 +23,12 @@ def home(request):
     context = {'equipos':equipos}
     return render(request, 'crud/home.html', context)
 
+@login_required(login_url='bienvenido')
 def equipos(request):
     equipos = Equipo.objects.all()
     return JsonResponse({'equipos':list(equipos.values())})
 
+@login_required(login_url='bienvenido')
 def agregar(request):
     if request.method == "POST":
         form = EquipoForm(request.POST)
@@ -34,12 +41,14 @@ def agregar(request):
     context = {'form' : form}
     return render(request, 'crud/agregar.html', context)
 
+@login_required(login_url='bienvenido')
 def eliminar(request, equipo_id):
     equipo = Equipo.objects.get(id=equipo_id)
     equipo.delete()
     # return redirect("home")
     return JsonResponse({'status': "deleted"})
 
+@login_required(login_url='bienvenido')
 def editar(request, equipo_id):
     equipo = Equipo.objects.get(id=equipo_id)
     if request.method == "POST":
@@ -52,7 +61,6 @@ def editar(request, equipo_id):
 
     context = {'form' : form}
     return render(request, 'crud/editar.html', context)
-
 
 def helpdesk(request):
     if request.method == "POST":
@@ -70,6 +78,8 @@ def helpdesk(request):
     
     return render(request, 'crud/helpdesk.html')
 
+
+@login_required(login_url='bienvenido')
 def uploadFile(request):
     if request.method == "POST":
         # Fetching the form data
@@ -89,6 +99,7 @@ def uploadFile(request):
         "files": documents
     })
 
+@login_required(login_url='bienvenido')
 def privateFile(request):
     if request.method == "POST":
         # Fetching the form data
@@ -108,6 +119,7 @@ def privateFile(request):
         "files": documents
     })
 
+@login_required(login_url='bienvenido')
 def detallefile(request, archivo_id):
     archivo = privateDocument.objects.get(id=archivo_id)
     texto=str(archivo.uploadedFile)

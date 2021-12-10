@@ -7,25 +7,11 @@ from django.urls import reverse_lazy
 
 from .forms import loginForm, createUserForm
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-'''
-def logear(request):
-    username = request.POST['prueba3']
-    password = request.POST['reastdyfugih1234']
-    print(request.POST['username'])
-    print(username)
-    
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        # Redirect to a success page.
-        return redirect('home')
-        
-    else:
-        return render(request, 'login.html')
-'''
+@login_required(login_url='bienvenido')
 def crearusuario(request):
     if request.method == "POST":
         form = createUserForm(request.POST)

@@ -1,5 +1,10 @@
 {% extends 'crud/layout.html' %}
 {% block content %}
+
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url 'home' %}" >Inicio</a>
+    <br>
+    <br>
     <form method="post">
         {% csrf_token %}
         {{ form }}

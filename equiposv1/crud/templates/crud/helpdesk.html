@@ -2,10 +2,11 @@
 {% block content %}
 
     {% if user.is_staff %}
-    <a href="{% url 'home' %}">Cerrar Sesion</a>
-    <br>
-    <h1>Ayuda</h1>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{% url 'home' %}" >Inicio</a>
+        <h1>Ayuda</h1>
     {% else %}
+        <a href="{% url 'bienvenido' %}" >Volver</a>
         <h1>Solictud de Registro</h1>
     {% endif %}
 
