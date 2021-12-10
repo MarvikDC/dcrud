@@ -36,26 +36,32 @@
     </style>
 </head>
 <body>
-    <form action="/archivos/" method="POST" enctype="multipart/form-data">
+    <a href="{% url 'home' %}" >Inicio</a>
+    {% if user.is_staff %}
+        <a href="/admin/logout/">Cerrar Sesion</a>
+    {% endif %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        
         <input type="text" name="fileTitle" placeholder="Enter a title">
         <input type="file" name="uploadedFile">
         {% csrf_token %}
-        <input type="submit" value="Upload">
+        <input type="submit" value="Subir Archivo">
+        
     </form>
     <table>
         <tr>
             <th>ID</th>
             <th>Titulo</th>
-            <!--  <th>File Path</th>  -->
+            <!--<th>File Path</th> -->
             <th>fecha de carga & hora</th>
         </tr>
         {% for file in files %}
             <tr>
                 <td>{{ file.id }}</td>
                 <td>{{ file.title }}</td>                
-                <!-- <td>{{ file.uploadedFile.url }}</td> -->
+                <!--<td>{{ file.uploadedFile.url }}</td> -->
                 <td>{{ file.dateTimeOfUpload }}</td>
-                <td><button><a href={{file.uploadedFile.url}}>Ver</a></button></td>
+                <td><button><a href={{file.uploadedFile.url}} target="_blank">Ver</a></button></td>
                 
             </tr>
         {% endfor %}

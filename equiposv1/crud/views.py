@@ -8,6 +8,9 @@ from django.core.mail import send_mail
 
 # Create your views here.
 
+def welcome(request):
+    return render(request, 'crud/welcome.html')
+
 def home(request):
     equipos = Equipo.objects.all()
     
@@ -59,7 +62,11 @@ def helpdesk(request):
         email_from = settings.EMAIL_HOST_USER
         recipient_list=['mdelcarpiol@ulasalle.edu.pe']
         send_mail(subject, message, email_from, recipient_list)
-        return redirect('home')
+        #user = request.user
+        if request.user.is_authenticated:
+            return redirect('home')
+        else:
+            return redirect('bienvenido')
     
     return render(request, 'crud/helpdesk.html')
 

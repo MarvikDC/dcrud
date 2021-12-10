@@ -36,6 +36,10 @@
     </style>
 </head>
 <body>
+    <a href="{% url 'home' %}" >Inicio</a>
+    {% if user.is_staff %}
+        <a href="/admin/logout/">Cerrar Sesion</a>
+    {% endif %}
     <form action="/archivosprivados/" method="POST" enctype="multipart/form-data">
         <input type="text" name="fileTitle" placeholder="Enter a title">
         <input type="file" name="uploadedFile">
@@ -56,7 +60,7 @@
                 <!-- <td>{{ file.uploadedFile.url }}</td> -->
                 <td>{{ file.dateTimeOfUpload }}</td>
                 <!--<td><button><a href={{file.uploadedFile.url}}>Ver</a></button></td> -->
-                <td><button><a href="{% url 'detallearchivo' file.id %}">Detalle</a></button></td>
+                <td><button><a href="{% url 'detallearchivo' file.id %}" target="_blank">Detalle</a></button></td>
                 
             </tr>
         {% endfor %}

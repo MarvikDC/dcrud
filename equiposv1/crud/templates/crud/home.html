@@ -6,6 +6,11 @@
     <button><a href="{% url 'ayuda' %}">Ayuda</a></button>
     <button><a href="{% url 'uploadFiles' %}">Archivos</a></button>
     <button><a href="{% url 'privateFiles' %}">A_Privados</a></button>
+    
+    {% if user.is_superuser %}
+        <button><a href="{% url 'crearusuario' %}">Crear Usuario</a></button>
+    {% endif %}
+
     </div>
     <br>
     <h2>{{user.username}}</h2>
@@ -41,7 +46,7 @@
     <script>
         function listar(){
             $.ajax({
-                url: '/a/listas/',
+                url: '/listas/',
                 type: 'GET',
                 dataType: 'json',
                 success: function(response){
@@ -59,7 +64,7 @@
                         '-->>'+
                         response.equipos[i].equipo_descripcion +
                         '------'+
-                        '<button><a href="/editar/'+li_id+'/">Editar</a></button>'+
+                        '<button><a href="editar/'+li_id+'/">Editar</a></button>'+
                         '<button id="delete" onclick="doDelete('+li_id+');">Eliminar</button>';
                         //console.log("mi id:");
                         //console.log(response.equipos[i].id);
@@ -74,7 +79,7 @@
             console.log("esto funciona el id es:"+ id);
             //window.location.href = "/eliminar/"+ id + "/";
             $.ajax({
-                url: "/a/eliminar/"+ id + "/",
+                url: "/eliminar/"+ id + "/",
                 type: 'GET',
                 dataType: 'json',
                 success: function(response){

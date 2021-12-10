@@ -1,0 +1,12 @@
+{% extends 'crud/layout.html' %}
+{% block content %}
+    <h1>Sistema de control de Equipos Informaticos</h1>
+    <h2>Por favor inicia sesion</h2>
+    <button><a href="u/accounts/login/">Iniciar Sesion</a></button>
+    
+    <br>
+    <h2>Si no cuentas con una cuenta solicita tu registro</h2>
+    <button><a href="{% url 'ayuda' %}">Enviar solictud</a></button>
+    
+    
+{% endblock %}

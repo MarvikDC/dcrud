@@ -2,6 +2,12 @@
 <html>
 <head>
     <title>Equipos</title>
+    {% if user.is_staff %}
+        <a href="u/admin/logout/">Cerrar Sesion</a>
+    {% endif %}
+    
+    
+    
 </head>
 <body>
     {% block content %}
